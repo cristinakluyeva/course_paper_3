@@ -1,11 +1,11 @@
 import json
 from datetime import datetime
 
-def get_operations_json(filename):
+def get_operations_json(filename) -> list:
     """
-
-    :param filename:
-    :return:
+    Функция возвращает преобразованный в python формат список операций
+    :param filename: Файл json-формата
+    :return: список данных, полученных из filename
     """
     with open(filename, encoding="utf=8") as file:
         client_operations = json.load(file)
@@ -16,11 +16,11 @@ def get_operations_json(filename):
     return execute
 
 
-def get_executed_operations(lst):
+def get_executed_operations(lst: list) -> list:
     """
-
-    :param lst:
-    :return:
+    Функция возвращает список выполненных операций.
+    :param lst: Список операций.
+    :return: Список выполненных операций.
     """
     executed_operations: list = []
     for item in lst:
@@ -41,21 +41,21 @@ def sort_by_date(lst: list) -> list:
 
 def print_five_operations(lst: list) -> list:
     """
-
-    :param lst:
-    :return:
+    Функция возвращает 5 последних операций.
+    :param lst: Список выполненных операций.
+    :return: Список 5 последних выполненных операций.
     """
     five_operation = lst[:5]
 
     return five_operation
 
 
-def get_id_info(lst: list, oid: int):
+def get_id_info(lst: list, oid: int) -> list:
     """
-
-    :param lst:
-    :param oid:
-    :return:
+    Функция возвращает список с информацией об операциях по их id
+    :param lst: Список операций.
+    :param oid: Идентификатор операции.
+    :return: Список с информацией по операциям
     """
     operation = lst[oid]
     operation_id = operation["id"]
@@ -69,23 +69,29 @@ def get_id_info(lst: list, oid: int):
 
 def get_description(data: list) -> list:
     """
-
-    :param data:
-    :return:
+    Функция возвращает описание операции
+    :param data: Список.
+    :return:Элемент списка(словарь) по ключу "description"
     """
     return data[0]["description"]
 
-def get_date(data):
+
+def get_date(data: list) -> str:
+    """
+    Функция возвращает дату в формате "%Y-%m-%d"
+    :param data: Список.
+    :return: Строка.
+    """
     date = data[0]["date"]
     date_obj = datetime.strptime(date, "%Y-%m-%dT%H:%M:%S.%f")
     return date_obj.strftime("%d.%m.%Y")
 
 
-def get_to(accounts):
+def get_to(accounts: list) -> str:
     """
-
-    :param accounts:
-    :return:
+    Функция возвращает номер счета в формате: Счет **ХХХХ
+    :param accounts: Список.
+    :return: Строка.
     """
     for account in accounts:
         to = account["to"]
@@ -94,11 +100,11 @@ def get_to(accounts):
     return formatted
 
 
-def get_amount(transactions):
+def get_amount(transactions: list) -> list:
     """
-
-    :param transactions:
-    :return:
+    Функция возвращает кол-во переведенных средств.
+    :param transactions: Список.
+    :return: Список переводов по операциям.
     """
     amounts = []
     for transaction in transactions:
@@ -111,11 +117,11 @@ def get_amount(transactions):
             return i
 
 
-def get_from(transactions):
+def get_from(transactions: list) -> str:
     """
-
-    :param transaction:
-    :return:
+    Функция возвращает счет отправителя в следующем формате: СЧЕТ(название карты) ХХХХ ХХ** **** ХХХХ
+    :param transaction: Список.
+    :return: Строка с счетом отправителя.
     """
     from_list = []
 
